@@ -1,0 +1,43 @@
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus
+          - metrics
+          - health
+  server:
+    port: 8082
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    generate-ddl: true
+    show-sql: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=postgresql
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+
+cors:
+  allowedorigins: http://localhost:5000,http://localhost:4000
+
+jwt:
+  secret-key: 5v8y/B?E(H+MbQeThWmZq4t6w9z$C&F)J@NcRfUjXn2r5u8x/A%D*G-KaPdSgVkY
+  
+sql:
+  init: 
+    mode: always
+    platform: h2
