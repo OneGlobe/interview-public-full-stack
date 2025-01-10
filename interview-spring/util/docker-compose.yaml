@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  service:
+    build: ../
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_SCHEMA: service
+      SPRING_DATASOURCE_USERNAME: service_user
+      SPRING_DATASOURCE_PASSWORD: service_password
+      SPRING_FLYWAY_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_FLYWAY_SCHEMAS: service
+      SPRING_FLYWAY_USER: service_user
+      SPRING_FLYWAY_PASSWORD: service_password
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: https://cognito-idp.us-east-2.amazonaws.com/us-east-2_eyLXzuUZL
+    ports:
+      - 8080:8080
+      - 8081:8081
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./initpg.sql:/docker-entrypoint-initdb.d/initpg.sql
+    ports:
+      - 5432:5432

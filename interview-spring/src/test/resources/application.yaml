@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    driver:
+      class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=postgresql
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: doesntmatter
+logging:
+  level:
+    com:
+      oneglobe: DEBUG
+    org:
+      springframework:
+        # beans: DEBUG
+        # security: DEBUG
+      # hibernate:
+      #   SQL: DEBUG
+      #   orm:
+      #     jdbc:
+      #       bind: TRACE
