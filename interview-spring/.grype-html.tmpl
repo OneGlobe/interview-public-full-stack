@@ -1,0 +1,47 @@
+<html>
+<head>
+  <style type="text/css">
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+<body>
+<h2>Grype vulnerability report - %CONTAINER%</h2>
+<table>
+  <tr style="font-weight: bold; text-align: center;">
+    <td>Name</td>
+    <td>PURL</td>
+    <td>Location</td>
+    <td>Installed Version</td>
+    <td>Fixed Version</td>
+    <td>Vulnerability</td>
+    <td>Severity</td>
+  </tr>
+  {{- range .Matches}}
+  <tr>
+    <td>{{.Artifact.Name}}</td>
+    <td>{{.Artifact.PURL}}</td>
+    <td>
+      <ul>
+        {{- range .Artifact.Locations}}
+        <li>{{.RealPath}}</li>
+        {{- end}}
+      </ul>
+    </td>
+    <td>{{.Artifact.Version}}</td>
+    <td>
+      <ul>
+        {{- range .Vulnerability.Fix.Versions}}
+        <li>{{.}}</li>
+        {{- end}}
+      </ul>
+    </td>
+    <td>{{.Vulnerability.ID}}</td>
+    <td>{{.Vulnerability.Severity}}</td>
+  </tr>
+  {{- end}}
+</table>
+</body>
+</html>
